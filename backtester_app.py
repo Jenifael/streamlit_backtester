@@ -15,11 +15,8 @@ st.sidebar.header("Backtest Configuration")
 position_size = st.sidebar.number_input("Position Size ($)", min_value=1000, value=5000, step=500)
 start_budget = st.sidebar.number_input("Starting Budget", min_value=1000, value=10000, step=1000)
 
-default_tickers = [
-    "NVDA", "TEM", "GOOG", "META", "AMZN", "ORCL", "CRM", "PLTR", "SNOW",
-    "MSTR", "AMD", "AVGO", "TSM", "ASML", "INTC", "QCOM", "MU", "AAPL",
-    "TSLA", "NFLX", "PYPL", "UBER", "SHOP", "SQ", "COIN"
-]
+default_tickers = ["AF.PA", "AC.PA", "AI.PA", "ALO.PA", "BNP.PA", "CA.PA", "COFA.PA", "NOKIA.HE", "LI.PA", "CAP.PA", "ACA.PA", "CS.PA", "BN.PA", "DG.PA", "DSY.PA", "AIR.PA", "EL.PA", "EN.PA", "ENX.PA", "FRVIA.PA", "ELIS.PA", "FR.PA", "ORA.PA", "ENGI.PA", "GTT.PA", "GLE.PA", "BOL.PA", "RMS.PA", "HO.PA", "KER.PA", "LR.PA", "MC.PA", "ML.PA", "OR.PA", "PUB.PA", "RI.PA", "RNO.PA", "SCR.PA", "SGO.PA", "SAF.PA", "STMI.VI", "SU.PA", "TFI.PA", "TTE.PA", "URW.PA", "STLAP.PA", "UBI.PA", "VK.PA", "VIE.PA", "WLN.PA", "SAN.PA"]
+
 selected_tickers = st.sidebar.multiselect("Select Stocks to Backtest", options=default_tickers, default=default_tickers)
 
 st.sidebar.subheader("Strategy Parameters")

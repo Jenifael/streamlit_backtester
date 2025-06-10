@@ -12,7 +12,7 @@ st.title("Trader_Joe80 Swing Options Backtester")
 # --- User Inputs ---
 st.sidebar.header("Backtest Configuration")
 
-position_size = st.sidebar.number_input("Position Size ($)", min_value=1000, value=5000, step=500)
+position_size = st.sidebar.number_input("Position Size (€)", min_value=1000, value=5000, step=500)
 start_budget = st.sidebar.number_input("Starting Budget", min_value=1000, value=10000, step=1000)
 
 default_tickers = ["AF.PA", "AC.PA", "AI.PA", "ALO.PA", "BNP.PA", "CA.PA", "COFA.PA", "NOKIA.HE", "LI.PA", "CAP.PA", "ACA.PA", "CS.PA", "BN.PA", "DG.PA", "DSY.PA", "AIR.PA", "EL.PA", "EN.PA", "ENX.PA", "FRVIA.PA", "ELIS.PA", "FR.PA", "ORA.PA", "ENGI.PA", "GTT.PA", "GLE.PA", "BOL.PA", "RMS.PA", "HO.PA", "KER.PA", "LR.PA", "MC.PA", "ML.PA", "OR.PA", "PUB.PA", "RI.PA", "RNO.PA", "SCR.PA", "SGO.PA", "SAF.PA", "STMI.VI", "SU.PA", "TFI.PA", "TTE.PA", "URW.PA", "STLAP.PA", "UBI.PA", "VK.PA", "VIE.PA", "WLN.PA", "SAN.PA"]
@@ -20,7 +20,7 @@ default_tickers = ["AF.PA", "AC.PA", "AI.PA", "ALO.PA", "BNP.PA", "CA.PA", "COFA
 selected_tickers = st.sidebar.multiselect("Select Stocks to Backtest", options=default_tickers, default=default_tickers)
 
 st.sidebar.subheader("Strategy Parameters")
-max_option_premium = st.sidebar.slider("Max Option Premium ($)", 1.0, 5.0, 3.0, 0.25)
+max_option_premium = st.sidebar.slider("Max Option Premium (€)", 1.0, 5.0, 3.0, 0.25)
 option_expiration_days = st.sidebar.slider("Option Expiration (Days)", 30, 90, 60, 5)
 stop_loss_pct = st.sidebar.slider("Stop-Loss (%)", 5, 50, 25, 1)
 take_profit_pct = st.sidebar.slider("Take-Profit (%)", 10, 200, 50, 5)
@@ -169,9 +169,9 @@ if st.sidebar.button("Run Backtest"):
                     all_trades.append({
                         "Ticker": ticker, "Strategy": current_trade['Type'], "Entry Date": current_trade['Entry Date'].date(),
                         "Exit Date": current_ts.date(), "Exit Reason": exit_reason,
-                        "Entry Price": f"${current_trade['Entry Price']:.2f}", "Exit Price": f"${exit_price:.2f}",
-                        "Contracts": current_trade['Contracts'], "Entry Premium": f"${current_trade['Premium']:.2f}",
-                        "Options P/L": f"${profit_loss:.2f}"
+                        "Entry Price": f"€{current_trade['Entry Price']:.2f}", "Exit Price": f"€{exit_price:.2f}",
+                        "Contracts": current_trade['Contracts'], "Entry Premium": f"€{current_trade['Premium']:.2f}",
+                        "Options P/L": f"€{profit_loss:.2f}"
                     })
                     in_trade = False
                     current_trade = {}
@@ -250,15 +250,15 @@ if st.sidebar.button("Run Backtest"):
     if not all_trades:
         st.warning("No trades were executed during the backtest period.")
     else:
-        total_pnl = sum(float(trade['Options P/L'].replace('$', '')) for trade in all_trades)
+        total_pnl = sum(float(trade['Options P/L'].replace('€', '')) for trade in all_trades)
         final_portfolio_value = start_budget + total_pnl
         
-        wins = [t for t in all_trades if float(t['Options P/L'].replace('$', '')) > 0]
+        wins = [t for t in all_trades if float(t['Options P/L'].replace('€', '')) > 0]
         win_rate = len(wins) / len(all_trades) if all_trades else 0
         
         col1, col2, col3, col4 = st.columns(4)
-        col1.metric("Starting Budget", f"${start_budget:,.2f}")
-        col2.metric("Final Portfolio Value", f"${final_portfolio_value:,.2f}", delta=f"{total_pnl:,.2f}")
+        col1.metric("Starting Budget", f"€{start_budget:,.2f}")
+        col2.metric("Final Portfolio Value", f"€{final_portfolio_value:,.2f}", delta=f"{total_pnl:,.2f}")
         col3.metric("Total Trades", len(all_trades))
         col4.metric("Win Rate", f"{win_rate:.2%}")
 

@@ -83,24 +83,25 @@ if st.sidebar.button("Run Backtest"):
             st.error(f"Failed to get data for {ticker}: {e}")
             return None, None, None
 
-    def get_trend_direction(weekly_data, daily_data, four_hour_data, current_date):
-        """Confirms trend using 50 EMA on W, D, and 4h charts."""
-        try:
-            latest_w = weekly_data[weekly_data.index <= current_date].iloc[-1]
-            latest_d = daily_data[daily_data.index <= current_date].iloc[-1]
-            latest_4h = four_hour_data[four_hour_data.index <= current_date].iloc[-1]
-            
-            is_uptrend = latest_d['Close'] > latest_d['EMA50'] and \
-                         latest_4h['Close'] > latest_4h['EMA50']
-            
-            is_downtrend = latest_d['Close'] < latest_d['EMA50'] and \
-                           latest_4h['Close'] < latest_4h['EMA50']
-
-            if is_uptrend: return "Up"
-            elif is_downtrend: return "Down"
-            else: return "None"
-        except IndexError:
-            return "None"
+def get_trend_direction(weekly_data, daily_data, four_hour_data, current_date):
+    """Confirms trend using 50 EMA on W, D, and 4h charts."""
+    try:
+        latest_w = weekly_data[weekly_data.index <= current_date].iloc[-1]
+        latest_d = daily_data[daily_data.index <= current_date].iloc[-1]
+        latest_4h = four_hour_data[four_hour_data.index <= current_date].iloc[-1]
+        
+        is_uptrend = latest_w['Close'] > latest_w['EMA50'] and \
+                     latest_d['Close'] > latest_d['EMA50'] and \
+                     latest_4h['Close'] > latest_4h['EMA50']
+        
+        is_downtrend = latest_w['Close'] < latest_w['EMA50'] and \
+                       latest_d['Close'] < latest_d['EMA50'] and \
+                       latest_4h['Close'] < latest_4h['EMA50']
+        if is_uptrend: return "Up"
+        elif is_downtrend: return "Down"
+        else: return "None"
+    except IndexError:
+        return "None"
 
     def is_not_at_ath(daily_data, current_date):
         historical_data = daily_data.loc[:current_date]

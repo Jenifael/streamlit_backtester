@@ -90,12 +90,10 @@ if st.sidebar.button("Run Backtest"):
             latest_d = daily_data[daily_data.index <= current_date].iloc[-1]
             latest_4h = four_hour_data[four_hour_data.index <= current_date].iloc[-1]
             
-            is_uptrend = latest_w['Close'] > latest_w['EMA50'] and \
-                         latest_d['Close'] > latest_d['EMA50'] and \
+            is_uptrend = latest_d['Close'] > latest_d['EMA50'] and \
                          latest_4h['Close'] > latest_4h['EMA50']
             
-            is_downtrend = latest_w['Close'] < latest_w['EMA50'] and \
-                           latest_d['Close'] < latest_d['EMA50'] and \
+            is_downtrend = latest_d['Close'] < latest_d['EMA50'] and \
                            latest_4h['Close'] < latest_4h['EMA50']
 
             if is_uptrend: return "Up"

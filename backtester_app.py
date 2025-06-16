@@ -149,9 +149,9 @@ if st.sidebar.button("Run Backtest"):
                 if (current_pl / (current_trade['Contracts'] * current_trade['Premium'] * 100)) <= -(stop_loss_pct / 100):
                     exit_reason = f"{stop_loss_pct}% Stop Loss"
                 # Technical Stop
-                elif (current_trade['Type'] == 'Call' and current_row['Close'] < current_trade['Stop']) or \
-                     (current_trade['Type'] == 'Put' and current_row['Close'] > current_trade['Stop']):
-                    exit_reason = "Technical Stop"
+                # elif (current_trade['Type'] == 'Call' and current_row['Close'] < current_trade['Stop']) or \
+                #      (current_trade['Type'] == 'Put' and current_row['Close'] > current_trade['Stop']):
+                #     exit_reason = "Technical Stop"
                 # Take Profit
                 elif (current_pl / (current_trade['Contracts'] * current_trade['Premium'] * 100)) >= (take_profit_pct / 100):
                     exit_reason = f"{take_profit_pct}% Take Profit"

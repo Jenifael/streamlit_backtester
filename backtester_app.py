@@ -64,8 +64,7 @@ if st.sidebar.button("Run Backtest"):
             if not all(col in data_1h.columns for col in required_cols):
                 return None, None, None
 
-            data_1h = data_1h.between_time('09:30', '16:00')
-            data_4h = data_1h.resample('4h', offset='30min').agg({
+            data_4h = data_1h.resample('4h').agg({
                 'Open': 'first', 'High': 'max', 'Low': 'min', 'Close': 'last', 'Volume': 'sum'
             }).dropna()
 
